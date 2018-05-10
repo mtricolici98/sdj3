@@ -1,0 +1,25 @@
+package common.model;
+
+import java.io.Serializable;
+
+public class PackageByType extends AbstractPackage implements Serializable
+{
+	private String type;
+	
+	public PackageByType(PalletCollection origins, String type)
+	{
+		super(origins);
+		this.type = type;
+		
+		if(!origins.isAllPalletsOfType(type))
+		{
+			throw new IllegalArgumentException();
+		}
+	}
+	
+	public String getType()
+	{
+		return this.type;
+	}
+
+}

@@ -1,0 +1,10 @@
+package Model;
+
+public class Palet {
+private long id;
+private String type;
+private double weight;
+private double maxWeight;
+private ArrayList<Part> partList;
+
+}

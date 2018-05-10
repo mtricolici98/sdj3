@@ -1,0 +1,11 @@
+package common.model;
+import java.io.Serializable;
+import java.util.UUID;
+
+public class DismantlingFacilityUtilities implements Serializable 
+{
+	public static String generateId() 
+	{
+		return UUID.randomUUID().toString();
+	}
+}

@@ -1,0 +1,53 @@
+
+
+import java.io.Serializable;
+import java.sql.Date;
+
+public class AbstractPackage implements Serializable 
+{
+	private String id;
+	private PalletCollection origins;
+	private double weight;
+	private Date productPackageDate;
+	private String type;
+	
+	public AbstractPackage(ArrayList<Pallet> origins)
+	{
+		id = DismantlingFacilityUtilities.generateId();
+		this.origins = origins;
+	}
+	
+	public void setOrigins(PalletCollection origins)
+	{
+		this.origins = origins;
+	}
+	
+	public String getId()
+	{
+		return id;
+	}
+	
+	public PalletCollection getPallets()
+	{
+		return origins;
+	}
+	
+	public double getWeight() {
+		return weight;
+	}
+	
+	public void setWeight(double weight)
+	{
+		this.weight = weight;
+	}
+	
+	public Date getProductPackageDate()
+	{
+		return null;
+	}
+	
+	public String getType()
+	{
+		return type;
+	}
+}

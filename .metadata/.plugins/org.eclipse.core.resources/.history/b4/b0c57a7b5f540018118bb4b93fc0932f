@@ -1,0 +1,56 @@
+package common.model;
+
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.Iterator;
+
+public class PalletCollection implements Serializable 
+{
+	private ArrayList<Pallet> pallets;
+	
+	public PalletCollection()
+	{
+		pallets = new ArrayList<>();
+	}
+	
+	public void add(Pallet pallet)
+	{
+		pallets.add(pallet);
+	}
+	
+	public boolean isAllPalletsOfType(String type)
+	{
+		Iterator<Pallet> iterator = pallets.iterator();
+		
+		while(iterator.hasNext()) 
+		{
+			Pallet currentPallet = iterator.next();
+			if(currentPallet.getType() != type)
+			{
+				return false;
+			}
+		}
+		return true;
+	}
+	
+	//Gets the first available pallet which has not been filled completely
+	
+	public Pallet getAvailablePallet(double weight, String pType)
+	{
+		for(Pallet pl: pallets) {
+			if(pl.getWeight() + weight<pl.getMaxWeight() && !pl.isReadyForPackaging())
+			{
+				return pl;
+			}
+		}
+		
+		Pallet temp = new Pallet(pType);
+		pallets.add(temp);
+		return temp;
+	}
+	
+	public ArrayList<Pallet> getPalletCollection()
+	{
+		return pallets;
+	}
+}

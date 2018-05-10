@@ -1,0 +1,56 @@
+
+
+import java.io.Serializable;
+import java.util.ArrayList;
+
+public class Pallet implements Serializable 
+{
+	private String id;
+	private String type;
+	private double maxWeight;
+	private double weight;
+	private ArrayList<Car> cars;
+	
+	public Pallet(String type,double maxWeight)
+	{
+		this.id = DismantlingFacilityUtilities.generateId();
+		this.type = type;
+		this.weight = 0;
+		this.cars = new ArrayList<Car>();
+	}
+	
+	public String getType()
+	{
+		return type;
+	}
+	
+	public double getMaxWeight()
+	{
+		return weight;
+	}
+	
+	public double getWeight()
+	{
+		return weight;
+	}
+	
+	public ArrayList<Car> getParts() 
+	{
+		return cars;
+	}
+	
+	public void addPartFromCar(Car car, double weight)
+	{
+		if(!cars.contains(car))
+		{
+			cars.add(car);
+		}
+		this.weight += weight;
+	}
+	
+	public boolean isReadyForPackaging()
+	{
+		return weight >= maxWeight - 50.0;
+	}
+
+}

@@ -1,0 +1,16 @@
+
+public class Car {
+
+	
+	private String vin;
+	private double weight;
+	private String name;
+	
+	
+	public Car(String vin, double weight, String name) {
+		this.vin =vin ;
+		this.weight = weight;
+		this.name = name;
+		
+	}
+}

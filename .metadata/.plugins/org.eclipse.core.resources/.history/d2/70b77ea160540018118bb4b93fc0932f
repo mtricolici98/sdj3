@@ -1,0 +1,10 @@
+
+
+import java.io.Serializable;
+
+public interface PartType extends Serializable 
+{
+	public static final String TIRE = "TIRE";
+	public static final String STEERING_WEEL = "STEERING_WEEL";
+	
+}
