@@ -15,16 +15,10 @@ public class DBServer {
 		this.db = new MyDatabase(DRIVER, URL, USER, PASSWORD);
 	}
 	
-	public void addCarToDB(Car car)  {
-		String sql = "INSERT INTO facility.cars (vin, name, weight) values (?,?,?)";
+	public void addCarToDB(Car car) throws SQLException {
+		String sql = "INSERT INTO facilityMainSchema.cars (vin, name, weight) values (?,?,?)";
 		
-		try {
-			db.update(sql,car.getVin(),car.getName(),car.getWeight());
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		System.out.println("AddedCarToDB");
+		db.update(sql,car.getVin(),car.getName(),car.getWeight());
 	}
 	
 

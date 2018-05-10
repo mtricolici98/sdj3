@@ -3,7 +3,7 @@ public class Test {
 public static void main(String[] args) throws ClassNotFoundException {
 	
 	DBServer dbs = new DBServer();
-	Car car = new Car("12991480ash12",2000,"name");
+	Car car = new Car("12991480ash12","name",2000);
 	dbs.addCarToDB(car);
 }
 }

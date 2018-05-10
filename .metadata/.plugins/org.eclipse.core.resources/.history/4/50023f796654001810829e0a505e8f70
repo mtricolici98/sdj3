@@ -16,7 +16,7 @@ public class DBServer {
 	}
 	
 	public void addCarToDB(Car car)  {
-		String sql = "INSERT INTO facility.cars (vin, name, weight) values (?,?,?)";
+		String sql = "INSERT INTO facilityMainSchema.cars (vin, name, weight) values (?,?,?)";
 		
 		try {
 			db.update(sql,car.getVin(),car.getName(),car.getWeight());
