@@ -1,8 +1,13 @@
 package Model;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class Palet {
+public class Palet implements Serializable{
+/**
+	 * 
+	 */
+	private static final long serialVersionUID = -3871097326414081199L;
 private long id;
 private String type;
 private double weight;

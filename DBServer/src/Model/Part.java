@@ -1,8 +1,14 @@
 package Model;
 
-public class Part {
+import java.io.Serializable;
+
+public class Part implements Serializable{
 
 
+/**
+	 * 
+	 */
+	private static final long serialVersionUID = -5915654388887780921L;
 private String type;
 private Car car;
 private long partNumber;
