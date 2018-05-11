@@ -5,10 +5,6 @@ public class Car implements Serializable{
 	
 	
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1163250894677419290L;
 	private String vin;
 	private double weight;
 	private String name;

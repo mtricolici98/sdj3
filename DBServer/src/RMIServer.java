@@ -6,8 +6,9 @@ import java.rmi.RMISecurityManager;
 import java.rmi.RemoteException; 
 import java.rmi.server.UnicastRemoteObject; 
 import Model.*;
+import common.iDBRequests;
 
-public class RMIServer extends DBConnection {
+public class RMIServer  {
 
 	public RMIServer()  throws ClassNotFoundException {
 	
