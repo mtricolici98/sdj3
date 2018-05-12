@@ -55,7 +55,13 @@ public class S3Client {
 					String partType = input.nextLine();
 					System.out.println("Input the quantity for the part to be added");
 					int quantity = input.nextInt();
-					
+					input.nextLine();
+					try {
+						System.out.println(RMIClient.getInstance().getRemoteServer().addToPackageByType(partType, quantity, ""+packID));
+					} catch (RemoteException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
 					}
 					break;
 					case 0: {

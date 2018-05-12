@@ -76,4 +76,16 @@ public String addPartToPack(String partNo, String packNo) {
 	System.out.println("Packing reuslt is" + result);
 	return result;
 }
+
+public String addToPackageByType(String type, int quantity, String packId) {
+	String result = "";
+	try {
+		result = RMIClient.getInstance().getRemoteServer().addToPackageByType(type, quantity, packId);
+	} catch (RemoteException e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+	}
+	System.out.println("Packing reuslt is" + result);
+	return result;
+}
 }

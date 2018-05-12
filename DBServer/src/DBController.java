@@ -36,4 +36,8 @@ public long createNewPackage(String type) {
 public String addPartToPack(String partNo, String packNo) {
 	return db.addToPackage(partNo, packNo);
 }
+
+public String addToPackageByType(String type, int quantity, String packId) {
+	return db.addToPackageByType(type, quantity, packId);
+}
 }

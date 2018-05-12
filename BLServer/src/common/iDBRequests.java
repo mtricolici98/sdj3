@@ -13,4 +13,5 @@ public interface iDBRequests extends Remote {
 	ArrayList<Palet> findPalet(String type) throws RemoteException;
 	long createNewPackage(String type) throws RemoteException;
 	String addPartToPack(String partNo, String packNo) throws RemoteException;
+	String addToPackageByType(String type, int quantity, String packId) throws RemoteException;
 }

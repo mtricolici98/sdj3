@@ -9,8 +9,10 @@
 <fullyQualifiedTypeName name="java.rmi.Remote"/>
 <fullyQualifiedTypeName name="Model.Car"/>
 <fullyQualifiedTypeName name="RMI.RMIClient"/>
-<fullyQualifiedTypeName name="java.rmi.RemoteException"/>
 <fullyQualifiedTypeName name="java.rmi.registry.Registry"/>
 <fullyQualifiedTypeName name="java.util.Scanner"/>
 <fullyQualifiedTypeName name="java.net.SocketTimeoutException"/>
+<fullyQualifiedTypeName name="java.util.ArrayList"/>
+<fullyQualifiedTypeName name="Model.Part"/>
+<fullyQualifiedTypeName name="java.rmi.RemoteException"/>
 </qualifiedTypeNameHistroy>

@@ -49,5 +49,10 @@ public class RemoteDB extends UnicastRemoteObject implements iDBRequests {
 	public String addPartToPack(String partNo, String packNo) throws RemoteException {
 		return controller.addPartToPack(partNo, packNo);
 	}
+	@Override
+	public String addToPackageByType(String type, int quantity, String packId) throws RemoteException {
+		
+		return controller.addToPackageByType(type, quantity, packId);
+	}
 
 }

@@ -21,7 +21,7 @@ public class DBConnection {
 	}
 	
 	public void addCarToDB(Car car)  {
-		String sql = "INSERT INTO facility.cars (vin, name, weight) values (?,?,?)";
+		String sql = "INSERT INTO facility.cars (vin, name, weight,timeadded) values (?,?,?,NOW())";
 		
 		try {
 			db.update(sql,car.getVin(),car.getName(),car.getWeight());
@@ -106,7 +106,8 @@ public class DBConnection {
 				+ "INNER JOIN (SELECT packageid,type, MAX(timecreated) as last "
 				+ "from facility.package group by packageid) b "
 				+ "on a.packageid = b.packageid and "
-				+ "a.timecreated = b.last and a.type = ?";
+				+ "a.timecreated = b.last and a.type = ?"
+				+ "order by a.packageid asc";
 		try {
 			db.update(sql,type);
 			results = db.query(sql1, type);
@@ -155,6 +156,53 @@ public class DBConnection {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
+			
+		return result;
+		
+	}
+	public String addToPackageByType(String type, int quantity, String packId) {
+		String sql = "Select * from facility.parts where parttype=? and instock = true order by regnumber asc";
+		String result = "ok";
+		ArrayList<String> regNos= new ArrayList<String>();
+		ArrayList<Object[]> results;
+		try {
+			results = db.query(sql, type);
+			if(results.size()==0) {
+				result = "noitems";
+			} else if (results.size()>0) {
+				if (results.size()>=quantity) {
+					for(int l = 0;l<results.size() && l<quantity;l++) {
+						regNos.add(results.get(l)[0].toString());
+					}
+					
+				} else {
+					result = "Not Enough Items, only " + results.size() + " items available";
+				}
+				
+			}
+			}
+		 catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		String sql1 = "INSERT INTO facility.package_part (packageid, partid) values (?,?)";
+		
+		String sql2 =  " UPDATE facility.parts set instock= false where regnumber = ? ";
+		if(result.equals("ok")) { 
+			for(int i=0; i<regNos.size();i++) {
+				try {
+					db.update(sql1, Long.parseLong(packId),Long.parseLong(regNos.get(i)));
+					db.update(sql2, Long.parseLong(regNos.get(i)));
+				} catch (NumberFormatException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				
+			}
+			result = "Added " + regNos.size() + " Items to Package";}
 			
 		return result;
 		

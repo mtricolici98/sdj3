@@ -60,4 +60,13 @@ public class RemoteServer extends UnicastRemoteObject implements iBLRequests{
 		return controller.addPartToPack(partNo, packNo);
 	}
 
+
+
+
+	@Override
+	public String addToPackageByType(String type, int quantity, String packId) throws RemoteException {
+		
+		return controller.addToPackageByType(type, quantity, packId);
+	}
+
 }
