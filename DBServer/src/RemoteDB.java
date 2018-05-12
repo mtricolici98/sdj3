@@ -40,5 +40,14 @@ public class RemoteDB extends UnicastRemoteObject implements iDBRequests {
 		
 		return controller.findPalet(type);
 	}
+	@Override
+	public long createNewPackage(String type) throws RemoteException {
+		
+		return controller.createNewPackage(type);
+	}
+	@Override
+	public String addPartToPack(String partNo, String packNo) throws RemoteException {
+		return controller.addPartToPack(partNo, packNo);
+	}
 
 }

@@ -52,4 +52,28 @@ public void addPaletToDB(String type, double MaxWeight) {
 		e.printStackTrace();
 	}
 }
+
+public long createNewPackage(String type) {
+	long packid = 0;
+	try {
+		packid = RMIClient.getInstance().getRemoteServer().createNewPackage(type);
+	} catch (RemoteException e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+	}
+	return packid;
+}
+
+
+public String addPartToPack(String partNo, String packNo) {
+	String result = "";
+	try {
+		result = RMIClient.getInstance().getRemoteServer().addPartToPack(partNo, packNo);
+	} catch (RemoteException e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+	}
+	System.out.println("Packing reuslt is" + result);
+	return result;
+}
 }

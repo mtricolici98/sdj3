@@ -48,8 +48,12 @@ public class DBConnection {
 	public void addPartToDB(Part part,String paletID) {
 		ArrayList<Object[]> results;
 		long regNo = 0;
-		String sql = "INSERT INTO facility.parts (partNumber, partType,weight,timeadded) values (?,?,?,NOW())";
-		String sql1 = "Select a.* from facility.parts a INNER JOIN (SELECT regNumber, partnumber, MAX(timeadded) as last from facility.parts group by regnumber) b on a.partnumber = b.partnumber and a.timeadded = b.last and a.partnumber = ?";
+		String sql = "INSERT INTO facility.parts (partNumber, partType,weight,timeadded,instock) values (?,?,?,NOW(),true)";
+		String sql1 = "Select a.* from facility.parts a "
+				+ "INNER JOIN (SELECT regNumber, partnumber, MAX(timeadded) as last "
+				+ "from facility.parts group by regnumber) b on "
+				+ "a.partnumber = b.partnumber and "
+				+ "a.timeadded = b.last and a.partnumber = ?";
 		
 		String sql2 = "INSERT INTO facility.part_palet (partid, paletid) values (?,?)";
 		String sql3 = "Insert into facility.car_part (carvin,regno) values (?,?)" ;
@@ -94,6 +98,66 @@ public class DBConnection {
 		
 		return palets;
 	}
+	public long createNewPackage(String type) {
+		ArrayList<Object[]> results;
+		long regNo = 0;
+		String sql = "INSERT INTO facility.package (type,timecreated) values (?,NOW())";
+		String sql1 = "Select a.* from facility.package a "
+				+ "INNER JOIN (SELECT packageid,type, MAX(timecreated) as last "
+				+ "from facility.package group by packageid) b "
+				+ "on a.packageid = b.packageid and "
+				+ "a.timecreated = b.last and a.type = ?";
+		try {
+			db.update(sql,type);
+			results = db.query(sql1, type);
+			if(results.size()==1) {
+				regNo = Long.parseLong(results.get(0)[0].toString());
+				
+			} else if (results.size()>1){
+				regNo = Long.parseLong(results.get(results.size()-1)[0].toString());
+			}
+			System.out.println("Part reg no is " + regNo);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		System.out.println("AddedPaletToDB");
+		
+		return regNo;
+		
+	}
 	
+	
+	public String addToPackage(String partNo, String packageRegNo) {
+		String sql = "Select * from facility.parts where partnumber = ? order by regnumber asc";
+		String result = "ok";
+		String regNo = "";
+		ArrayList<Object[]> results;
+		try {
+			results = db.query(sql, partNo);
+			if(results.size()==0) {
+				result = "noitem";
+			} else if (results.size()>0) {
+				regNo = results.get(0)[0].toString();
+			}
+			}
+		 catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		String sql1 = "INSERT INTO facility.package_part (packageid, partid) values (?,?)";
+		
+		String sql2 =  " UPDATE facility.parts set instock= false where regnumber = ? ";
+			try {
+				db.update(sql1, Long.parseLong(packageRegNo),Long.parseLong(regNo));
+				db.update(sql2, Long.parseLong(regNo));
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+		return result;
+		
+	}
 
 }

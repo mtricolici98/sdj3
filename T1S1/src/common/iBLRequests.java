@@ -8,5 +8,6 @@ public interface iBLRequests extends Remote {
 
 	String addCarToDB(Car car) throws RemoteException;
 	String addPartToPalet(Part part) throws RemoteException;
-	
+	long creteNewPackage(String type) throws RemoteException;
+	String addPartToPack(String partNo,String packNo) throws RemoteException;
 }

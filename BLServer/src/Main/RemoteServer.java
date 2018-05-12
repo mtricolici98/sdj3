@@ -42,4 +42,22 @@ public class RemoteServer extends UnicastRemoteObject implements iBLRequests{
 		return "Part Successfully added to Palet";
 	}
 
+
+
+
+	@Override
+	public long creteNewPackage(String type) throws RemoteException {
+		
+		return controller.createNewPackage(type);
+	}
+
+
+
+
+	@Override
+	public String addPartToPack(String partNo, String packNo) throws RemoteException {
+		
+		return controller.addPartToPack(partNo, packNo);
+	}
+
 }

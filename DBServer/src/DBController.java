@@ -27,4 +27,13 @@ public void addPartToDB(Part part, String PaletID) {
 public ArrayList<Palet> findPalet(String type){
 	return db.findPalets(type);
 }
+
+
+public long createNewPackage(String type) {
+	return db.createNewPackage(type);
+}
+
+public String addPartToPack(String partNo, String packNo) {
+	return db.addToPackage(partNo, packNo);
+}
 }
