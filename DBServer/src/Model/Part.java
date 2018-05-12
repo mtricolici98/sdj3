@@ -7,17 +7,25 @@ public class Part implements Serializable{
 
 
 private String type;
-private Car car;
-private long partNumber;
+private String car;
+private String partNumber;
 private long regNumber;
 private double weight;
 
 
-public Part(String type, Car car, long partNo, long regNo, double weight) {
+public Part(String type, String car, String partNo, long regNo, double weight) {
 	this.type = type;
 	this.car =car;
 	partNumber = partNo;
 	regNumber = regNo;
+	this.weight = weight;
+	
+}
+
+public Part(String type, String car, String partNo, double weight) {
+	this.type = type;
+	this.car =car;
+	partNumber = partNo;
 	this.weight = weight;
 	
 }
@@ -27,12 +35,12 @@ public String getType() {
 }
 
 
-public Car getCar() {
+public String getCar() {
 	return car;
 }
 
 
-public long getPartNumber() {
+public String getPartNumber() {
 	return partNumber;
 }
 
