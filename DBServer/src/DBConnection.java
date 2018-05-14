@@ -133,6 +133,7 @@ public class DBConnection {
 		String sql = "Select * from facility.parts where partnumber = ? order by regnumber asc";
 		String result = "ok";
 		String regNo = "";
+		double weight = 0;
 		ArrayList<Object[]> results;
 		try {
 			results = db.query(sql, partNo);
@@ -140,18 +141,28 @@ public class DBConnection {
 				result = "noitem";
 			} else if (results.size()>0) {
 				regNo = results.get(0)[0].toString();
+				weight = Double.parseDouble(results.get(0)[3].toString());
 			}
 			}
 		 catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		String palno = "";
 		String sql1 = "INSERT INTO facility.package_part (packageid, partid) values (?,?)";
-		
+		ArrayList<Object[]> results1 = null;
 		String sql2 =  " UPDATE facility.parts set instock= false where regnumber = ? ";
+		String sql3 = "Select * from facility.part_palet a where a.partid = ? "; 
+		String sql4 = "update facility.palet set weight = weight - ? where paletid= ? ";
 			try {
 				db.update(sql1, Long.parseLong(packageRegNo),Long.parseLong(regNo));
 				db.update(sql2, Long.parseLong(regNo));
+				results1 = db.query(sql3, Long.parseLong(regNo));
+			
+				if (results1.size()>0) {
+				palno = results1.get(0)[0].toString();
+				}
+				db.update(sql4, weight,Long.parseLong(palno));
 			} catch (SQLException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -207,5 +218,47 @@ public class DBConnection {
 		return result;
 		
 	}
+	
+	public String getVehicleInfo(String vin){
+		ArrayList<Object[]> results;
+		ArrayList<Object[]> partsFromDB;
+		ArrayList<Object[]> paletFromDB;
+		ArrayList<Object[]> packageFromDB;
+		String result = "";
+		Car car = null;
+		String sql = "select * from facility.cars where vin = ?";
+		String sql1 = "select b.* from facility.car_part a, facility.parts b WHERE a.carvin = ? and a.regno = b.regnumber";
+		String sql2 = "select c.* from facility.part_palet b , facility.palet c where  b.partid = ? and b.paletid = c.paletid";
+		String sql3 = "select c.* from facility.package_part b , facility.package c where  b.partid = ? and b.packageid = c.packageid";
+		try {
+			results = db.query(sql, vin);
+			result = "Car with vin: " + results.get(0)[0].toString() + " Name: " + results.get(0)[1].toString() + " Weight: " + results.get(0)[2].toString() + " Added on : " + results.get(0)[3].toString() +" \r\n"; 
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+			try {
+				partsFromDB = db.query(sql1, vin);
+				for(int i = 0 ; i<partsFromDB.size(); i++) {
+				paletFromDB=db.query(sql2, Long.parseLong(partsFromDB.get(i)[0].toString()));
+				packageFromDB = db.query(sql3,Long.parseLong(partsFromDB.get(i)[0].toString()) );
+				result += "Part Regno: "+ partsFromDB.get(i)[0].toString() + " with part no: " + partsFromDB.get(i)[1].toString() + " of type: " + partsFromDB.get(i)[2].toString() + " with weight: " +partsFromDB.get(i)[3].toString() + "kg, added on: " + partsFromDB.get(i)[4].toString() + " is in stock: " + partsFromDB.get(i)[5].toString() +"\r\n"; 
+				if(paletFromDB!=null && paletFromDB.size()!=0) {
+				result += "On Palet with id: " + paletFromDB.get(0)[0].toString() + "\n"; }
+				if(packageFromDB!=null && packageFromDB.size()!=0) {
+					result += "In package with id: " + packageFromDB.get(0)[0] + " created on: " + packageFromDB.get(0)[2].toString() + "\n";	
+				}
+				result +="\n";
+				}
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		
+		return result;
+		
+	}
+	
 
 }

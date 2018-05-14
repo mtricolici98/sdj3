@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- This file was auto-generated from WSDL -->
+<!-- by the Apache Axis2 version: 1.7.7  Built on : Nov 20, 2017 (11:41:20 GMT) -->
+<serviceGroup>
+    <service name="Lookup">
+        <messageReceivers>
+            <messageReceiver mep="http://www.w3.org/ns/wsdl/in-out" class="webservice.LookupMessageReceiverInOut"/>
+        </messageReceivers>
+        <parameter name="ServiceClass">webservice.LookupSkeleton</parameter>
+        <parameter name="useOriginalwsdl">true</parameter>
+        <parameter name="modifyUserWSDLPortAddress">true</parameter>
+        <operation name="lookup" mep="http://www.w3.org/ns/wsdl/in-out" namespace="http://webservice">
+            <actionMapping>urn:lookup</actionMapping>
+            <outputActionMapping>urn:lookupResponse</outputActionMapping>
+        </operation>
+    </service>
+</serviceGroup>

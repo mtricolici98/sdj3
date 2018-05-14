@@ -14,4 +14,5 @@ public interface iDBRequests extends Remote {
 	long createNewPackage(String type) throws RemoteException;
 	String addPartToPack(String partNo, String packNo) throws RemoteException;
 	String addToPackageByType(String type, int quantity, String packId) throws RemoteException;
+	String getVehicleInfo(String vin) throws RemoteException;
 }

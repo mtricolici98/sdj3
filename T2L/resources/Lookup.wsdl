@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wsdl:definitions targetNamespace="http://webservice" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:ns="http://webservice" xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:ns1="http://org.apache.axis2/xsd" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/">
+  <wsdl:types>
+    <xs:schema attributeFormDefault="qualified" elementFormDefault="qualified" targetNamespace="http://webservice">
+            <xs:element name="lookup">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element minOccurs="0" name="args0" nillable="true" type="xs:string"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="lookupResponse">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element minOccurs="0" name="return" nillable="true" type="xs:string"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+        </xs:schema>
+  </wsdl:types>
+  <wsdl:message name="lookupResponse">
+    <wsdl:part name="parameters" element="ns:lookupResponse">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="lookupRequest">
+    <wsdl:part name="parameters" element="ns:lookup">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:portType name="LookupPortType">
+    <wsdl:operation name="lookup">
+      <wsdl:input message="ns:lookupRequest" wsaw:Action="urn:lookup">
+    </wsdl:input>
+      <wsdl:output message="ns:lookupResponse" wsaw:Action="urn:lookupResponse">
+    </wsdl:output>
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="LookupHttpBinding" type="ns:LookupPortType">
+    <http:binding verb="POST"/>
+    <wsdl:operation name="lookup">
+      <http:operation location="lookup"/>
+      <wsdl:input>
+        <mime:content part="parameters" type="application/xml"/>
+      </wsdl:input>
+      <wsdl:output>
+        <mime:content part="parameters" type="application/xml"/>
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="LookupSoap12Binding" type="ns:LookupPortType">
+    <soap12:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <wsdl:operation name="lookup">
+      <soap12:operation soapAction="urn:lookup" style="document"/>
+      <wsdl:input>
+        <soap12:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="LookupSoap11Binding" type="ns:LookupPortType">
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <wsdl:operation name="lookup">
+      <soap:operation soapAction="urn:lookup" style="document"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="Lookup">
+    <wsdl:port name="LookupHttpSoap11Endpoint" binding="ns:LookupSoap11Binding">
+      <soap:address location="http://localhost:8080/axis2/services/Lookup"/>
+    </wsdl:port>
+    <wsdl:port name="LookupHttpSoap12Endpoint" binding="ns:LookupSoap12Binding">
+      <soap12:address location="http://localhost:8080/axis2/services/Lookup"/>
+    </wsdl:port>
+    <wsdl:port name="LookupHttpEndpoint" binding="ns:LookupHttpBinding">
+      <http:address location="http://localhost:8080/axis2/services/Lookup"/>
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

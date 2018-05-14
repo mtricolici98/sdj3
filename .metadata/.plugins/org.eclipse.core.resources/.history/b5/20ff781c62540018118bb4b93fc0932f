@@ -1,8 +1,0 @@
-package Model;
-
-public class Package {
-private long id;
-private ArrayList<Palet> origin;
-private ArrayList<Part> parts;
-private String type;
-}

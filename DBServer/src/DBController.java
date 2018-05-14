@@ -40,4 +40,9 @@ public String addPartToPack(String partNo, String packNo) {
 public String addToPackageByType(String type, int quantity, String packId) {
 	return db.addToPackageByType(type, quantity, packId);
 }
+
+
+public String getVehicleInfo(String vin){
+	return db.getVehicleInfo(vin);
+}
 }

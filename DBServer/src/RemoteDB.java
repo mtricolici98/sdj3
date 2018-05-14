@@ -54,5 +54,10 @@ public class RemoteDB extends UnicastRemoteObject implements iDBRequests {
 		
 		return controller.addToPackageByType(type, quantity, packId);
 	}
+	@Override
+	public String getVehicleInfo(String vin) throws RemoteException {
+		// TODO Auto-generated method stub
+		return controller.getVehicleInfo(vin);
+	}
 
 }
